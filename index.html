@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart QR Attendance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+
+</head>
+<body>
+    <div class="container">
+        <h1>Smart QR Attendance</h1>
+
+        <form action="{{ url_for('scan') }}" method="post" enctype="multipart/form-data">
+
+            <h2>Scan QR Code</h2>
+            <input type="file" name="qr_image" accept="image/*" required>
+            <button type="submit">Scan and Mark Attendance</button>
+        </form>
+
+        <form action="{{ url_for('download') }}" method="get" style="margin-top: 20px;">
+
+
+            <button type="submit">Download Attendance CSV</button>
+        </form>
+
+        <h2>Attendance Records</h2>
+        {% if data %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in data %}
+                        <tr>
+                            <td>{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No attendance records yet.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

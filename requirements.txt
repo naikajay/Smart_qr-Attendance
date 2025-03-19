@@ -1,0 +1,3 @@
+# installing dependencies
+
+# pip install flask opencv-python qrcode pandas
